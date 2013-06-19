@@ -15,7 +15,7 @@
                       (into (hash-set) storage))))
 
 (defn post-good-news [dt opts]
-  (let [storage (:storage opts)
+  (let [storage (load-storage)
         entries (get-entries)
         postings (entries-to-postings entries)
         guids (keys postings)
@@ -27,9 +27,9 @@
 
 (cj/defcronj hn
   :entries [{:id "hacker-news-feed"
-             :opts {:storage (load-storage)}
+             :opts nil
              :handler post-good-news
-             :schedule "0 0-60/1 * * * * *"}])
+             :schedule "0 0-60/3 * * * * *"}])
 
 (defn run []
  (cj/start! hn))
