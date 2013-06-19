@@ -27,7 +27,7 @@
     (println dt " - " guids " - " fine-guids " - " fine-guid)
     (if (not (nil? posting))
       (do
-        (tweet (:title posting) (:link posting))
+        (tweet (:title posting) (:rank posting) (:link posting))
         (store storage (posting :uri))))))
 
 (cj/defcronj hn

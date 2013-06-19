@@ -21,8 +21,11 @@
    (get "data")
    (get "url")))
 
-(defn tweet [text link]
+(defn rank-word [rank]
+  (if (-> rank str seq last (= \1)) "point" "points"))
+
+(defn tweet [text rank link]
   (update-status
-   (str text "   " (shorten link))))
+   (str text " (" rank " " (rank-word rank) ") " (shorten link))))
 
 
