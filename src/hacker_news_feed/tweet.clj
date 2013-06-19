@@ -4,6 +4,8 @@
         [twitter.api.restful])
   (:require [clojure.data.json :as json]))
 
+;;(:statuses (:resources (:body (application-rate-limit-status :oauth-creds twitter-creds))))
+
 (def twitter-creds (apply make-oauth-creds (-> "secret/twitter" slurp (split #"\n"))))
 (def bitly-token (-> "secret/bitly" slurp))
 
