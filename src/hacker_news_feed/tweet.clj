@@ -26,6 +26,6 @@
 
 (defn tweet [text rank link]
   (update-status
-   (str text " (" rank " " (rank-word rank) ") " (shorten link))))
+   (str text " (" rank ") " (shorten link))))
 
 

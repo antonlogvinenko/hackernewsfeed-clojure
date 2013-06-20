@@ -42,7 +42,7 @@
     (merge-with merge ranks postings)))
 
 (defn postings-filter [posting]
-  (-> posting second :rank (> 42)))
+  (-> posting second :rank (>= 42)))
 
 (defn get-postings []
   (->> (get-entries)

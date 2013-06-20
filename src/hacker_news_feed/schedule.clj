@@ -34,7 +34,7 @@
   :entries [{:id "hacker-news-feed"
              :opts nil
              :handler post-good-news
-             :schedule "0 0-60/3 * * * * *"}])
+             :schedule "0 0-60/1 * * * * *"}])
 
 (defn run []
  (cj/start! hn))
