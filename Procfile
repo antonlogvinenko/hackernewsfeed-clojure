@@ -1,1 +1,0 @@
-worker: lein run
