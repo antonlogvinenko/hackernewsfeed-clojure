@@ -10,4 +10,6 @@
                  [org.clojure/data.json "0.2.2"]
                  [cronj "0.6.1"]
                  [enlive "1.1.1"]
-                 ])
+                 ]
+
+  :main hacker-news-feed.core)
