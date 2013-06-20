@@ -24,7 +24,7 @@
         fine-guids (get-fine-guids guids storage)
         fine-guid (highest-rank postings fine-guids)
         posting (postings fine-guid)]
-    (println dt " - " guids " - " fine-guids " - " fine-guid)
+    (println dt " - " posting)
     (if (not (nil? posting))
       (do
         (tweet (:title posting) (:rank posting) (:link posting))
@@ -34,7 +34,7 @@
   :entries [{:id "hacker-news-feed"
              :opts nil
              :handler post-good-news
-             :schedule "0 0-60/1 * * * * *"}])
+             :schedule "0 /10 * * * * *"}])
 
 (defn run []
  (cj/start! hn))
