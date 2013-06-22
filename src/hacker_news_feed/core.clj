@@ -1,4 +1,5 @@
 (ns hacker-news-feed.core
+  (:gen-class :main true)
   (:use [hacker-news-feed.schedule]))
 
 (defn foo
@@ -7,5 +8,5 @@
   (println x "Hello, World!"))
 
 
-(defn -main []
-  (run))
+(defn -main [f]
+  (run f))

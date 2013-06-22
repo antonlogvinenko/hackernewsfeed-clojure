@@ -27,14 +27,14 @@
     (println dt " - " posting)
     (if (not (nil? posting))
       (do
-        (tweet (:title posting) (:rank posting) (:link posting))
-        (store storage (posting :uri))))))
+        (store storage (posting :uri))
+        (tweet (:title posting) (:rank posting) (:link posting))))))
 
 (cj/defcronj hn
   :entries [{:id "hacker-news-feed"
              :opts nil
              :handler post-good-news
-             :schedule "0 /5 * * * * *"}])
+             :schedule "0 /1 * * * * *"}])
 
 (defn run []
  (cj/start! hn))
