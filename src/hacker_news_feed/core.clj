@@ -8,5 +8,5 @@
   (println x "Hello, World!"))
 
 
-(defn -main [f]
-  (run f))
+(defn -main [period rank file]
+  (run period (max (read-string rank) 100) file))

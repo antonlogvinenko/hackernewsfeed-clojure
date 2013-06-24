@@ -41,12 +41,13 @@
   (let [ranks (-> postings keys get-ranks)]
     (merge-with merge ranks postings)))
 
-(defn postings-filter [posting]
-  (-> posting second :rank (>= 85)))
+(defn postings-filter [rank]
+  (fn [posting]
+    (-> posting second :rank (>= rank))))
 
-(defn get-postings []
+(defn get-postings [rank]
   (->> (get-entries)
        entries-to-postings
        enrich-with-ranks
-       (filter postings-filter)
+       (filter (postings-filter rank))
        (into (hash-map))))

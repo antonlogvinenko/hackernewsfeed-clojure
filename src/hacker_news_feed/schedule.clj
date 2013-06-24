@@ -17,9 +17,9 @@
        first
        first))
 
-(defn post-good-news [dt opts]
-  (let [storage (load-storage)
-        postings (get-postings)
+(defn post-good-news [dt {rank :rank storage-file :storage-file}]
+  (let [storage (load-storage storage-file)
+        postings (get-postings rank)
         guids (keys postings)
         fine-guids (get-fine-guids guids storage)
         fine-guid (highest-rank postings fine-guids)
@@ -27,14 +27,15 @@
     (println dt " - " posting)
     (if (not (nil? posting))
       (do
-        (store storage (posting :uri))
+        (store storage-file storage (posting :uri))
         (tweet (:title posting) (:rank posting) (:link posting))))))
 
-(cj/defcronj hn
-  :entries [{:id "hacker-news-feed"
-             :opts nil
-             :handler post-good-news
-             :schedule "0 /1 * * * * *"}])
 
-(defn run []
- (cj/start! hn))
+
+(defn run [period rank storage-file]
+  (cj/defcronj hn
+    :entries [{:id "hacker-news-feed"
+               :opts {:storage-file storage-file :rank rank}
+               :handler post-good-news
+               :schedule (str "0 /" period " * * * * *")}])
+  (cj/start! hn))

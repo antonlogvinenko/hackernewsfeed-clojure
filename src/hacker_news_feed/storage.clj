@@ -3,20 +3,19 @@
 
 (def EMPTY '())
 (def MAX-SIZE 500)
-(def STORAGE "secret/storage")
 
 (defn normalize [guids]
   (take MAX-SIZE guids))
 
-(defn load-storage []
-  (-> STORAGE slurp (split #"\n")))
+(defn load-storage [storage-file]
+  (-> storage-file slurp (split #"\n")))
 
 (defn was-posted? [guid storage]
   (some (partial = guid) storage))
 
-(defn dump-storage [guids]
-  (->> guids (join "\n") (spit STORAGE))
+(defn dump-storage [storage-file guids]
+  (->> guids (join "\n") (spit storage-file))
   guids)
 
-(defn store [guids guid]
-  (->> guid (conj guids) normalize dump-storage))
+(defn store [storage-file guids guid]
+  (->> guid (conj guids) normalize (dump-storage storage-file)))
