@@ -1,7 +1,8 @@
 (ns hacker-news-feed.feed
   (:use [feedparser-clj.core])
   (:require [net.cgrand.enlive-html :as html]
-            [clojure.string :as str]))
+            [clojure.string :as str]
+            [clojure.xml :as xml]))
 
 (def feed-name "https://news.ycombinator.com/rss")
 (def main-name "https://news.ycombinator.com/")
@@ -11,11 +12,19 @@
 (defn entries-to-postings [entries]
   (reduce #(assoc %1 (:uri %2) %2) {} entries))
 
+(defn get-keys [entry]
+  (let [ahref (->> entry :description :value
+                   ( .getBytes) ( java.io.ByteArrayInputStream.) xml/parse
+                   :attrs :href)
+        uri (-> ahref (str/split #"\?id=") second read-string)]
+    (assoc (select-keys entry keys-of-interest)
+      :uri uri)))
+
 (defn get-entries []
-  (->> feed-name
-       parse-feed
-       :entries
-       (map #(select-keys % keys-of-interest))))
+  (let [feed (parse-feed feed-name)]
+    (->> feed
+         :entries
+         (map get-keys))))
 
 (defn get-page [url]
   (-> url java.net.URL. html/html-resource))

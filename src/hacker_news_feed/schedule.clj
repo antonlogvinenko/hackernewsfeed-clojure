@@ -5,7 +5,6 @@
   (:require [cronj.core :as cj]
             [clojure.set :as cljset]))
 
-
 (defn get-fine-guids [guids storage]
   (cljset/difference (into (hash-set) guids)
                      (into (hash-set) storage)))
@@ -29,8 +28,6 @@
       (do
         (store storage-file storage (posting :uri))
         (tweet (:title posting) (:rank posting) (:link posting))))))
-
-
 
 (defn run [period rank storage-file]
   (cj/defcronj hn
