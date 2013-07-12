@@ -16,7 +16,7 @@
   (let [ahref (->> entry :description :value
                    ( .getBytes) ( java.io.ByteArrayInputStream.) xml/parse
                    :attrs :href)
-        uri (-> ahref (str/split #"\?id=") second read-string)]
+        uri (-> ahref (str/split #"\?id=") second)]
     (assoc (select-keys entry keys-of-interest)
       :uri uri)))
 
