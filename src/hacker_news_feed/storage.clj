@@ -5,7 +5,7 @@
 (def MAX-SIZE 500)
 
 (defn normalize [guids]
-  (take MAX-SIZE guids))
+  (take-last MAX-SIZE guids))
 
 (defn load-storage [storage-file]
   (-> storage-file slurp (split #"\n")))
