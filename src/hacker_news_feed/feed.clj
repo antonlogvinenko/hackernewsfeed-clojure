@@ -1,8 +1,10 @@
 (ns hacker-news-feed.feed
+  (:import (com.sun.syndication.io SyndFeedInput XmlReader))
   (:use [feedparser-clj.core])
   (:require [net.cgrand.enlive-html :as html]
             [clojure.string :as str]
-            [clojure.xml :as xml]))
+            [clojure.xml :as xml]
+            [clojure.contrib.http.agent :as http]))
 
 (def feed-name "https://news.ycombinator.com/rss")
 (def main-name "https://news.ycombinator.com/")
@@ -20,14 +22,28 @@
     (assoc (select-keys entry keys-of-interest)
       :uri uri)))
 
+(defn parse-feed-2 [xmlreader]
+  (->>
+   (http/http-agent feed-name :headers [["User-Agent" "Mozilla"]])
+   http/string
+   .getBytes
+   (java.io.ByteArrayInputStream.)
+   XmlReader.
+   (.build (SyndFeedInput.))
+   make-feed))
+
 (defn get-entries []
-  (let [feed (parse-feed feed-name)]
+  (let [feed (parse-feed-2 feed-name)]
     (->> feed
          :entries
          (map get-keys))))
 
 (defn get-page [url]
-  (-> url java.net.URL. html/html-resource))
+  (-> url
+      (http/http-agent :headers [["User-Agent" "Mozilla"]])
+      http/string
+      (java.io.StringReader.)
+      html/html-resource))
 
 (defn select [elem-id page]
   (html/select page elem-id))

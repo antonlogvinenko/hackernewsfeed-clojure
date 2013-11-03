@@ -8,6 +8,7 @@
                  [twitter-api "0.7.4"]
                  [org/clojars/scsibug/feedparser-clj "0.4.0"]
                  [org.clojure/data.json "0.2.2"]
+                 [org.clojure/clojure-contrib "1.2.0"]
                  [cronj "0.6.1"]
                  [enlive "1.1.1"]
                  ]
