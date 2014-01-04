@@ -23,14 +23,13 @@
       :uri uri)))
 
 (defn parse-feed-2 [xmlreader]
-  (->>
-   (http/http-agent feed-name :headers [["User-Agent" "Mozilla"]])
-   http/string
-   .getBytes
-   (java.io.ByteArrayInputStream.)
-   XmlReader.
-   (.build (SyndFeedInput.))
-   make-feed))
+  (->> (-> (http/http-agent feed-name :headers [["User-Agent" "Mozilla"]])
+           http/string
+           (.getBytes "UTF-8")
+           java.io.ByteArrayInputStream.
+           XmlReader.)
+       (.build (SyndFeedInput.))
+       make-feed))
 
 (defn get-entries []
   (let [feed (parse-feed-2 feed-name)]
