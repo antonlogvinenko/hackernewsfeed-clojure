@@ -8,7 +8,7 @@
 
 (def feed-name "https://news.ycombinator.com/rss")
 (def main-name "https://news.ycombinator.com/")
-(def keys-of-interest [:title :link :uri])
+(def keys-of-interest [:title :link :uri :comments])
 
 
 (defn entries-to-postings [entries]

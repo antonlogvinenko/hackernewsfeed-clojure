@@ -24,8 +24,8 @@
 (defn rank-word [rank]
   (if (-> rank str seq last (= \1)) "point" "points"))
 
-(defn tweet [text rank link]
+(defn tweet [text rank link comments]
   (update-status
-   (str text " " link)))
+   (str text " " link " " "(" comments ")")))
 
 

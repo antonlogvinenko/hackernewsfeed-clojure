@@ -27,7 +27,7 @@
     (if (not (nil? posting))
       (do
         (store storage-file storage (posting :uri))
-        (tweet (:title posting) (:rank posting) (:link posting))))))
+        (tweet (:title posting) (:rank posting) (:link posting) (:comments posting))))))
 
 (defn run [period rank storage-file]
   (cj/defcronj hn
