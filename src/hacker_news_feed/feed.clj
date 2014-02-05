@@ -20,6 +20,7 @@
                    :attrs :href)
         uri (-> ahref (str/split #"\?id=") second)]
     (assoc (select-keys entry keys-of-interest)
+      :comments ahref
       :uri uri)))
 
 (defn parse-feed-2 [xmlreader]
