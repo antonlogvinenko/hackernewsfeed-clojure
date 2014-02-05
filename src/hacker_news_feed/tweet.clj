@@ -26,6 +26,6 @@
 
 (defn tweet [text rank link comments]
   (update-status
-   (str text " " link " " "(" comments ")")))
+   (str text " " link " " "(discussion: " comments ")")))
 
 
