@@ -11,6 +11,7 @@
                  [org.clojure/clojure-contrib "1.2.0"]
                  [cronj "0.6.1"]
                  [enlive "1.1.1"]
+                 [com.gravity/goose "2.1.22"]
                  ]
 
   :main hacker-news-feed.core)

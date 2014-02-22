@@ -25,7 +25,10 @@
   (if (-> rank str seq last (= \1)) "point" "points"))
 
 (defn tweet [text rank link comments]
-  (update-status
-   (str text " " link ", discussion: " comments "")))
+  (if (= link comments)
+    (update-status (str text " " link))
+    (let [short-comments (shorten comments)]
+      (update-status
+       (str text " " link ", discussion: " short-comments "")))))
 
 
