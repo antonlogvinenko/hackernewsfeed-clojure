@@ -10,6 +10,7 @@
                  [org.clojure/data.json "0.2.2"]
                  [org.clojure/clojure-contrib "1.2.0"]
                  [cronj "0.6.1"]
+                 [clj-http "0.7.9"]
                  [enlive "1.1.1"]
                  [com.gravity/goose "2.1.22"]
                  ]
